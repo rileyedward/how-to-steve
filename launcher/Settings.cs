@@ -1,8 +1,8 @@
 using System.Text.Json;
 
-namespace SteveFish.Launcher;
+namespace HowToSteve.Launcher;
 
-/// <summary>%LOCALAPPDATA%\SteveFish\launcher.json</summary>
+/// <summary>%LOCALAPPDATA%\HowToSteve\launcher.json</summary>
 internal sealed class Settings
 {
     public string? GameDir { get; set; }

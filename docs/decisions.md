@@ -1,4 +1,4 @@
-# SteveFish decisions
+# How to Steve decisions
 
 Newest last. Each entry: decision, why, status.
 
@@ -42,7 +42,7 @@ Newest last. Each entry: decision, why, status.
 
 **D19. Minecraft mode disables the game's own mouse/scroll/number-key InputActions instead of patching click handlers.** Actions in non-menu maps whose bindings start with `<Mouse>/leftButton`, `rightButton`, `scroll` or `<Keyboard>/1..9` are disabled while the mode is on (re-disabled each frame) and restored after. This sidesteps U7 (which components bind clicks) and works without Harmony. The disabled list is logged as `[diag] U7`. *Accepted (2026-10-18).*
 
-**D20. One-time starter kit for Steve** (stone tools, cobblestone, dirt, planks, logs, crafting table, torches, glass), given over RCON on first spawn and tracked with the scoreboard tag `stevefish_kit`. Survival rules stay on. *Accepted (2026-10-18).*
+**D20. One-time starter kit for Steve** (stone tools, cobblestone, dirt, planks, logs, crafting table, torches, glass), given over RCON on first spawn and tracked with the scoreboard tag `howtosteve_kit` (`stevefish_kit` from before the rename also counts). Survival rules stay on. *Accepted (2026-10-18).*
 
 **D21. Minecraft block colliders live on layer 11 (InvisibleColliders), not 8 (supersedes D8's layer choice).** The player collides with 11 and can stand on it (U3 `CanJumpOnLayers` includes 11, U4 LocalPlayer×InvisibleColliders collides), and the terrain voxelizer only scans layer 8, so it can never mistake our own blocks for island ground. Cost: How to Fish's `ProjectileHitLayer` doesn't include 11, so the game's own projectiles and fishing lines pass through Minecraft blocks. The build raycast ignores the island's own layer-11 invisible walls. Config key `[Render] SectionLayer`. *Accepted (2026-10-18).*
 
@@ -57,4 +57,6 @@ Newest last. Each entry: decision, why, status.
 **D26. Terrain sync skips sea-floor columns and force-loads per chunk.** The first in-game sync (Island1) scanned a 601×600 box because the island's level colliders include the sea floor. Columns whose ground is more than 2 m under `WaterManager.WaterHeight` are now skipped. The bridge also merges neighbouring columns into box fills, force-loads only the chunks it writes (vanilla caps `forceload` at 256 chunks per command, so the first version's single big `forceload` failed), retries `not loaded`, and counts `applied` from the server's replies instead of assuming success. `npm run clear-barriers` removed the 372k stray barriers from that first sync. *Accepted (2026-10-18).*
 **D27. One-click launcher** (`launcher/`, C# WinForms, .NET 10, self-contained single-file exe so nothing needs installing). It runs the Paper server and the bundled bridge (`node.exe` + compiled JS) as child processes in a kill-on-close job object, stops them gracefully (`stop` on stdin; the server saves its worlds), and launches How to Fish via `steam://rungameid/4001890`. It asks for the Minecraft EULA itself and never accepts it silently. BepInEx and Paper are downloaded on first run, pinned by SHA-256; nothing third-party is redistributed except Node.js (MIT). *Accepted (2026-10-18).*
 
-**D28. Launcher data lives in `%LOCALAPPDATA%\SteveFish`** (`server\` with the world and RCON secret, `launcher.json`, `launcher.log`). The development world from `server/run/` was copied there on 2026-10-18; `server/run/` is now only for running the server by hand. *Accepted (2026-10-18).*
+**D28. Launcher data lives in `%LOCALAPPDATA%\HowToSteve`** (`server\` with the world and RCON secret, `launcher.json`, `launcher.log`). The development world from `server/run/` was copied there on 2026-10-18; `server/run/` is now only for running the server by hand. *Accepted (2026-10-18).*
+
+**D29. Renamed SteveFish → How to Steve (2026-10-18).** Display name "How to Steve"; code identifiers `HowToSteve` (namespaces, `HowToSteve.Plugin.dll`, `HowToSteveLauncher.exe`, `HowToSteve-<version>-win-x64.zip`); ids `howtosteve` (BepInEx GUID `dev.riley.howtosteve`, protocol `hello.plugin`), npm package `how-to-steve-bridge`, env vars `HOWTOSTEVE_*`. Existing installs carry over: the launcher moves `%LOCALAPPDATA%\SteveFish` to `%LOCALAPPDATA%\HowToSteve` once, removes the old `BepInEx\plugins\SteveFish` plugin so two copies never load, and renames the old config to the new GUID. The old starter-kit tag `stevefish_kit` still counts as "kit given". *Accepted (2026-10-18).*

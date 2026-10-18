@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace SteveFish.Bridge
+namespace HowToSteve.Bridge
 {
     /// <summary>Wire envelope, protocol.md §2. Mirrors bridge/src/protocol.ts.</summary>
     internal sealed class Envelope
@@ -217,7 +217,7 @@ namespace SteveFish.Bridge
 
     internal sealed class HelloPayload
     {
-        [JsonProperty("plugin")] public string Plugin { get; set; } = "stevefish";
+        [JsonProperty("plugin")] public string Plugin { get; set; } = "howtosteve";
         [JsonProperty("pluginVersion")] public string PluginVersion { get; set; }
         [JsonProperty("game")] public string Game { get; set; } = "How to Fish";
         [JsonProperty("unityVersion")] public string UnityVersion { get; set; }

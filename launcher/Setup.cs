@@ -2,7 +2,7 @@ using System.IO.Compression;
 using System.Reflection;
 using System.Security.Cryptography;
 
-namespace SteveFish.Launcher;
+namespace HowToSteve.Launcher;
 
 /// <summary>First-run setup. Every download is pinned by SHA-256 (see <see cref="Pins"/>).</summary>
 internal static class Setup
@@ -11,7 +11,7 @@ internal static class Setup
 
     static Setup()
     {
-        Http.DefaultRequestHeaders.UserAgent.ParseAdd("SteveFishLauncher/1.0 (local)");
+        Http.DefaultRequestHeaders.UserAgent.ParseAdd("HowToSteveLauncher/1.0 (local)");
     }
 
     /// <summary>Downloads to a temp file, checks the hash, then moves into place.</summary>
@@ -62,12 +62,40 @@ internal static class Setup
 
     public static void InstallPlugin(string gameDir, Action<string> log)
     {
-        if (!File.Exists(Detect.BundledPlugin)) throw new FileNotFoundException("The plugin isn't next to the launcher (plugin\\SteveFish.Plugin.dll).");
+        if (!File.Exists(Detect.BundledPlugin)) throw new FileNotFoundException("The plugin isn't next to the launcher (plugin\\HowToSteve.Plugin.dll).");
         var dest = Detect.PluginPath(gameDir);
         Directory.CreateDirectory(Path.GetDirectoryName(dest)!);
         File.Copy(Detect.BundledPlugin, dest, overwrite: true);
-        log($"SteveFish plugin installed: {dest}");
+        log($"How to Steve plugin installed: {dest}");
+        RemoveLegacyPlugin(gameDir, log);
     }
+
+    /// <summary>
+    /// Before the rename the plugin was BepInEx\plugins\SteveFish\SteveFish.Plugin.dll; leaving it would load
+    /// two copies. Its config is carried over to the new plugin id so settings survive.
+    /// </summary>
+    private static void RemoveLegacyPlugin(string gameDir, Action<string> log)
+    {
+        var oldDir = Path.Combine(gameDir, "BepInEx", "plugins", "SteveFish");
+        var oldDll = Path.Combine(oldDir, "SteveFish.Plugin.dll");
+        if (File.Exists(oldDll))
+        {
+            File.Delete(oldDll);
+            if (!Directory.EnumerateFileSystemEntries(oldDir).Any()) Directory.Delete(oldDir);
+            log("Removed the old SteveFish plugin.");
+        }
+        var oldCfg = Path.Combine(gameDir, "BepInEx", "config", "dev.riley.stevefish.cfg");
+        var newCfg = Path.Combine(gameDir, "BepInEx", "config", "dev.riley.howtosteve.cfg");
+        if (File.Exists(oldCfg) && !File.Exists(newCfg))
+        {
+            File.Move(oldCfg, newCfg);
+            log("Carried your plugin settings over to the new name.");
+        }
+    }
+
+    /// <summary>True when the pre-rename plugin is still installed (so Play must update).</summary>
+    public static bool HasLegacyPlugin(string gameDir) =>
+        File.Exists(Path.Combine(gameDir, "BepInEx", "plugins", "SteveFish", "SteveFish.Plugin.dll"));
 
     // ---------- server side ----------
 
@@ -82,7 +110,7 @@ internal static class Setup
     public static void AcceptEula()
     {
         Directory.CreateDirectory(Detect.ServerDir);
-        File.WriteAllText(EulaFile, $"# Accepted in the SteveFish launcher on {DateTime.Now:yyyy-MM-dd HH:mm} ({Pins.EulaUrl})\neula=true\n");
+        File.WriteAllText(EulaFile, $"# Accepted in the How to Steve launcher on {DateTime.Now:yyyy-MM-dd HH:mm} ({Pins.EulaUrl})\neula=true\n");
     }
 
     public static bool ServerReady() => File.Exists(PaperJar) && Detect.Sha256(PaperJar) == Pins.PaperSha256 && File.Exists(RconSecretFile);

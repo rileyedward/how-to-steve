@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace SteveFish.Minecraft
+namespace HowToSteve.Minecraft
 {
     /// <summary>
     /// Minecraft block sounds from the player's own install: the launcher keeps sound files as hashed objects
@@ -136,7 +136,7 @@ namespace SteveFish.Minecraft
 
         private static void PlayAt(AudioClip clip, Vector3 at, float volume, float pitch)
         {
-            var go = new GameObject("SteveFish.Sound") { transform = { position = at } };
+            var go = new GameObject("HowToSteve.Sound") { transform = { position = at } };
             var src = go.AddComponent<AudioSource>();
             src.clip = clip;
             src.volume = volume;

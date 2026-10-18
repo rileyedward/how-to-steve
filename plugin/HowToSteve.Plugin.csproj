@@ -5,10 +5,10 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <AssemblyName>SteveFish.Plugin</AssemblyName>
-    <BepInExPluginGuid>dev.riley.stevefish</BepInExPluginGuid>
-    <BepInExPluginName>SteveFish</BepInExPluginName>
-    <Product>SteveFish</Product>
+    <AssemblyName>HowToSteve.Plugin</AssemblyName>
+    <BepInExPluginGuid>dev.riley.howtosteve</BepInExPluginGuid>
+    <BepInExPluginName>How to Steve</BepInExPluginName>
+    <Product>How to Steve</Product>
     <Description>Play as Steve inside How to Fish (local-only Minecraft bridge)</Description>
     <Version>0.3.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -19,7 +19,7 @@
       https://nuget.bepinex.dev/v3/index.json;
       https://nuget.samboy.dev/v3/index.json
     </RestoreAdditionalProjectSources>
-    <RootNamespace>SteveFish</RootNamespace>
+    <RootNamespace>HowToSteve</RootNamespace>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
   </PropertyGroup>
 
@@ -52,11 +52,11 @@
     <Reference Include="FishNet.Runtime"><HintPath>$(HowToFishManaged)\FishNet.Runtime.dll</HintPath><Private>false</Private></Reference>
   </ItemGroup>
 
-  <!-- `dotnet build -p:Deploy=true` copies the plugin into BepInEx\plugins\SteveFish\. -->
+  <!-- `dotnet build -p:Deploy=true` copies the plugin into BepInEx\plugins\HowToSteve\. -->
   <Target Name="DeployToGame" AfterTargets="Build" Condition="'$(Deploy)' == 'true'">
     <Error Condition="'$(BepInExDir)' == '' Or !Exists('$(BepInExDir)\core\BepInEx.dll')" Text="BepInExDir is not set or BepInEx is not installed there." />
-    <MakeDir Directories="$(BepInExDir)\plugins\SteveFish" />
-    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(BepInExDir)\plugins\SteveFish" />
-    <Message Importance="high" Text="Deployed $(TargetFileName) to $(BepInExDir)\plugins\SteveFish" />
+    <MakeDir Directories="$(BepInExDir)\plugins\HowToSteve" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(BepInExDir)\plugins\HowToSteve" />
+    <Message Importance="high" Text="Deployed $(TargetFileName) to $(BepInExDir)\plugins\HowToSteve" />
   </Target>
 </Project>

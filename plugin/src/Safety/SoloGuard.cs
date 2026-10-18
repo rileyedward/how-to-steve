@@ -1,7 +1,7 @@
 using System;
 using FishNet;
 
-namespace SteveFish.Safety
+namespace HowToSteve.Safety
 {
     /// <summary>
     /// The three solo-only conditions from game-map §7 / decisions D6. Phase 2 only logs them;

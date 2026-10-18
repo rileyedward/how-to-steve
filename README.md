@@ -1,16 +1,16 @@
-# SteveFish
+# How to Steve
 
 Play as Steve inside How to Fish.
 
 ## Overview
 
-### What is SteveFish?
+### What is How to Steve?
 
-SteveFish is a mod that runs real Minecraft alongside How to Fish. A local Minecraft server owns the blocks, items, crafting and survival rules; a BepInEx plugin draws that world inside How to Fish, so you can mine, build, craft and fight with Minecraft rules on a How to Fish island. A bridge between the two logs in as Steve and keeps him where your How to Fish player is, and the island itself is mirrored into Minecraft as invisible blocks so both games agree on where the ground is.
+How to Steve is a mod that runs real Minecraft alongside How to Fish. A local Minecraft server owns the blocks, items, crafting and survival rules; a BepInEx plugin draws that world inside How to Fish, so you can mine, build, craft and fight with Minecraft rules on a How to Fish island. A bridge between the two logs in as Steve and keeps him where your How to Fish player is, and the island itself is mirrored into Minecraft as invisible blocks so both games agree on where the ground is.
 
 Everything runs on your own PC. The server and bridge only listen on `127.0.0.1`, and the plugin switches itself off unless you're in an offline world, as host, with nobody else connected, so it never touches anyone else's game.
 
-SteveFish is not produced, approved or endorsed by Dazed Games, Mojang Studios or Microsoft. It ships no game code and no Minecraft assets: textures and sounds load at runtime from your own Minecraft install.
+How to Steve is not produced, approved or endorsed by Dazed Games, Mojang Studios or Microsoft. It ships no game code and no Minecraft assets: textures and sounds load at runtime from your own Minecraft install.
 
 ### Key Features
 
@@ -43,17 +43,17 @@ Ensure you have the following installed on your system. You can verify each one 
 
 ### Installation
 
-1. Download `SteveFish-<version>-win-x64.zip` from the [Releases](../../releases) page and extract it anywhere, for example `Documents\SteveFish`.
+1. Download `HowToSteve-<version>-win-x64.zip` from the [Releases](../../releases) page and extract it anywhere, for example `Documents\HowToSteve`.
 
-2. Run `SteveFishLauncher.exe`.
+2. Run `HowToSteveLauncher.exe`.
 
 3. Read and accept the [Minecraft EULA](https://aka.ms/MinecraftEULA) by ticking the box in the launcher.
 
-4. Press **Play**. On the first run the launcher installs [BepInEx](https://github.com/BepInEx/BepInEx) 5 and the SteveFish plugin into How to Fish and downloads the [Paper](https://papermc.io) server. Both downloads are checked against pinned SHA-256 hashes, and no game files are changed.
+4. Press **Play**. On the first run the launcher installs [BepInEx](https://github.com/BepInEx/BepInEx) 5 and the How to Steve plugin into How to Fish and downloads the [Paper](https://papermc.io) server. Both downloads are checked against pinned SHA-256 hashes, and no game files are changed.
 
 5. When How to Fish opens, start an **offline** world.
 
-Your Minecraft world, settings and `launcher.log` are kept in `%LOCALAPPDATA%\SteveFish`. To play plain How to Fish again, set `enabled = false` in `doorstop_config.ini` in the game folder.
+Your Minecraft world, settings and `launcher.log` are kept in `%LOCALAPPDATA%\HowToSteve`. To play plain How to Fish again, set `enabled = false` in `doorstop_config.ini` in the game folder.
 
 ### Controls
 
@@ -101,7 +101,7 @@ The launcher's **Minecraft server** tab takes server commands, for example `give
     npm install
     ```
 
-3. Build the plugin and copy it into the game's `BepInEx\plugins\SteveFish` folder (close How to Fish first; BepInEx must already be installed, for example by running the launcher once):
+3. Build the plugin and copy it into the game's `BepInEx\plugins\HowToSteve` folder (close How to Fish first; BepInEx must already be installed, for example by running the launcher once):
 
     ```bash
     dotnet build plugin -c Release -p:Deploy=true
@@ -155,10 +155,10 @@ The wire speaks Minecraft coordinates only. The plugin owns the transform betwee
 Releases are built locally, because the plugin compiles against the game's assemblies:
 
 ```bash
-powershell -ExecutionPolicy Bypass -File tools\release\build-release.ps1
+powershell -ExecutionPolicy Bypass -File tools\release\build-release.ps1 -Downloads
 ```
 
-This runs the bridge tests and writes `dist\SteveFish-<version>-win-x64.zip` with a `.sha256` file next to it. See [docs/releasing.md](docs/releasing.md) for the smoke test and the publish command.
+This runs the bridge tests and writes `HowToSteve-<version>-win-x64.zip` and its `.sha256` file into your Downloads folder (leave out `-Downloads` to write them to `dist\` instead). See [docs/releasing.md](docs/releasing.md) for the smoke test and the publish command.
 
 ## Testing
 
@@ -179,6 +179,6 @@ dotnet build launcher -c Release
 
 ## Data and Licensing
 
-SteveFish contains no How to Fish code or assets and no Minecraft assets. Block models, textures, GUI sprites, the default Steve skin and sounds are read at runtime from the player's own Minecraft installation and are never copied or redistributed. Game internals in [docs/game-map.md](docs/game-map.md) were mapped from type and method metadata; no decompiled code is included.
+How to Steve contains no How to Fish code or assets and no Minecraft assets. Block models, textures, GUI sprites, the default Steve skin and sounds are read at runtime from the player's own Minecraft installation and are never copied or redistributed. Game internals in [docs/game-map.md](docs/game-map.md) were mapped from type and method metadata; no decompiled code is included.
 
 The release zip bundles [Node.js](https://nodejs.org) (MIT, license included as `bridge\NODE-LICENSE`) and the bridge's npm dependencies under their own licenses. BepInEx (LGPL-2.1) and Paper (GPL-3.0) are downloaded from their official sources on first run. Running the Minecraft server requires accepting the [Minecraft EULA](https://aka.ms/MinecraftEULA).

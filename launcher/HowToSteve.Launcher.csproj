@@ -9,10 +9,10 @@
     <UseWindowsForms>true</UseWindowsForms>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <AssemblyName>SteveFishLauncher</AssemblyName>
-    <RootNamespace>SteveFish.Launcher</RootNamespace>
+    <AssemblyName>HowToSteveLauncher</AssemblyName>
+    <RootNamespace>HowToSteve.Launcher</RootNamespace>
     <Version>1.0.0</Version>
-    <Product>SteveFish Launcher</Product>
+    <Product>How to Steve Launcher</Product>
     <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
     <ApplicationVisualStyles>true</ApplicationVisualStyles>
     <ApplicationIcon></ApplicationIcon>

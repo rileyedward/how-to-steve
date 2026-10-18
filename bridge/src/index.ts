@@ -4,14 +4,14 @@ import { Rcon, readRconPassword } from './rcon.js';
 import { DEFAULT_PORT, startBridgeServer } from './server.js';
 import { TerrainWriter } from './terrain.js';
 
-const port = process.env.STEVEFISH_PORT ? Number(process.env.STEVEFISH_PORT) : DEFAULT_PORT;
+const port = process.env.HOWTOSTEVE_PORT ? Number(process.env.HOWTOSTEVE_PORT) : DEFAULT_PORT;
 if (!Number.isInteger(port) || port <= 0 || port > 65535) {
-  log.error(`invalid STEVEFISH_PORT: ${process.env.STEVEFISH_PORT}`);
+  log.error(`invalid HOWTOSTEVE_PORT: ${process.env.HOWTOSTEVE_PORT}`);
   process.exit(1);
 }
 
-const mcPort = process.env.STEVEFISH_MC_PORT ? Number(process.env.STEVEFISH_MC_PORT) : 25565;
-const offline = process.env.STEVEFISH_NO_MC === '1';
+const mcPort = process.env.HOWTOSTEVE_MC_PORT ? Number(process.env.HOWTOSTEVE_MC_PORT) : 25565;
+const offline = process.env.HOWTOSTEVE_NO_MC === '1';
 
 const password = readRconPassword();
 const rcon = password ? new Rcon(password) : null;

@@ -3,10 +3,10 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 using BepInEx.Logging;
-using SteveFish.Bridge;
+using HowToSteve.Bridge;
 using UnityEngine;
 
-namespace SteveFish.Minecraft
+namespace HowToSteve.Minecraft
 {
     /// <summary>Plain arrays for one section mesh, built off the main thread.</summary>
     internal sealed class MeshData
@@ -60,7 +60,7 @@ namespace SteveFish.Minecraft
             _flipWinding = flipWinding;
             _log = log;
             StateId("minecraft:air"); // id 0 is always air
-            _thread = new Thread(Run) { IsBackground = true, Name = "SteveFish.MeshWorker" };
+            _thread = new Thread(Run) { IsBackground = true, Name = "HowToSteve.MeshWorker" };
             _thread.Start();
         }
 

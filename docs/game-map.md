@@ -1,6 +1,6 @@
 # How to Fish game map (Phase 1)
 
-How to Fish internals, mapped for SteveFish. Every claim cites its evidence:
+How to Fish internals, mapped for How to Steve. Every claim cites its evidence:
 
 - **[IL]**: static analysis of `Assembly-CSharp.dll` (type, field, method, and which methods each one calls / reads / writes). This is the "REA" pass.
 - **[data]**: read straight from a game data file.
@@ -103,7 +103,7 @@ The game reads layers through `LayerMask` fields serialized on `GameInfo` (the m
 | Level geometry layer | Code assigns `"Level"` by name in `Item.UpdateLayer()`, and `"Level"/"Default"/"Interactable"/"LocalPlayer"/"OutlinedObject"` appear as `NameToLayer` strings | [IL] |
 | Collider types on islands | MeshCollider vs TerrainCollider vs primitives: **[unknown]**. `UnityEngine.TerrainModule` ships, but no game code references `Terrain` | [IL] (absence) |
 
-### Implications for SteveFish
+### Implications for How to Steve
 
 - **Anchor the Minecraft origin to the island, not to world (0,0,0).** Islands get re-parented and moved, so `mcOrigin` should be defined relative to `Island.CurIsland.transform.parent`. Re-voxelize (`terrain_upload` new `revision`) when `OnlineIslandManager.OnActiveIslandChange` or `OnMiniPosChange` fires.
 - **Voxelizer mask:** start with `Level(8) | InvisibleGroundCollider(12) | InvisibleColliders(11)`, then confirm against `GameInfo.CanJumpOnLayers` at runtime. Use `Physics.CheckBox(cellCenter, 0.5·scale, identity, mask)` per cell inside the island bounds (`Island.IslandSize`).
@@ -119,7 +119,7 @@ Rendering doesn't need to patch a render method. URP draws any `MeshRenderer` in
 | Prefix `IslandManager.UnloadIslands()` | Prefix | islands are about to unload: hide/clear block meshes so nothing floats in the void during the load |
 | Postfix `Island.SetMiniPos(Vector2)` and `OnlineIslandManager.OnActiveIslandChange` | Postfix | the island moved or changed: re-anchor the block root and bump the terrain revision |
 
-Layout: one `SteveFishWorld` root marked `DontDestroyOnLoad`, so island scene unloads don't destroy it. It copies the pose of `Island.CurIsland.transform.parent` whenever the hooks above fire. Under it, one GameObject per 16³ section with `MeshFilter` + `MeshRenderer` (+ `MeshCollider` on layer 8). Meshes are built off the main thread as arrays and uploaded on the main thread. Block textures come from a runtime-built atlas loaded from your own Minecraft `.jar` (never shipped). Material: **[unknown] U8**. Also **[unknown] U12**: whether `GameInfo.CurCamera.cullingMask` includes layer 8 (it almost certainly does, since islands are on it).
+Layout: one `How to SteveWorld` root marked `DontDestroyOnLoad`, so island scene unloads don't destroy it. It copies the pose of `Island.CurIsland.transform.parent` whenever the hooks above fire. Under it, one GameObject per 16³ section with `MeshFilter` + `MeshRenderer` (+ `MeshCollider` on layer 8). Meshes are built off the main thread as arrays and uploaded on the main thread. Block textures come from a runtime-built atlas loaded from your own Minecraft `.jar` (never shipped). Material: **[unknown] U8**. Also **[unknown] U12**: whether `GameInfo.CurCamera.cullingMask` includes layer 8 (it almost certainly does, since islands are on it).
 
 ---
 
@@ -171,7 +171,7 @@ To **observe** HTF damage (for the Minecraft HUD): Postfix `PlayerVitals.OnHealt
 | Item registry at runtime | `ItemManager.Items : Dictionary<Transform, Item>`, `Add/Remove/Get(Collider)` | [IL] |
 | Player spawn points | `SpawnManager` (`MainSpawnPos`, `MiniSpawnPos`, `GetPlayerSpawnPos`) | [IL] |
 
-SteveFish relevance: the Minecraft blocks we render are **not** FishNet objects. They are local-only GameObjects we create ourselves, so nothing about them is networked. Dropping a Minecraft item *into* How to Fish as a physical object (Phase 6) would go through `ItemManager.SpawnNewItem` with an existing prefab.
+How to Steve relevance: the Minecraft blocks we render are **not** FishNet objects. They are local-only GameObjects we create ourselves, so nothing about them is networked. Dropping a Minecraft item *into* How to Fish as a physical object (Phase 6) would go through `ItemManager.SpawnNewItem` with an existing prefab.
 
 ---
 
@@ -201,7 +201,7 @@ SteveFish relevance: the Minecraft blocks we render are **not** FishNet objects.
 | Central RPC hub | `Server : NetworkBehaviour` (`Server.Instance`) holds most ServerRpcs: `UpdatePlayerPosRot`, `HitCreature`, `HitPlayer`, `TeleportPlayer`, `SpawnPlayer`, `BuyItem`, … | [IL] |
 | Flag | `ConnectionManager.IsUsingSteam` (bool) | [IL] |
 | Voice | MetaVoiceChat over FishNet (`FishNetNetProvider`) | [IL] |
-| UnityTransport port | **[unknown]** (FishNet's UTP default is 7770). SteveFish's bridge port 25599 should not collide | |
+| UnityTransport port | **[unknown]** (FishNet's UTP default is 7770). How to Steve's bridge port 25599 should not collide | |
 
 ### Solo-only guard (project rule)
 
@@ -211,7 +211,7 @@ The plugin enables **nothing** unless all of these hold, checked every time a se
 2. the local player is the server (`InstanceFinder.IsServerStarted && InstanceFinder.IsClientStarted`), and
 3. `PlayerManager.Players.Count == 1`.
 
-If any of them goes false mid-session (someone joins, or a Steam lobby starts), the plugin tears down the Minecraft overlay and stops calling game damage/spawn APIs. Since everything SteveFish adds is local GameObjects, and the only game APIs it calls run on a host you own, nothing reaches another player.
+If any of them goes false mid-session (someone joins, or a Steam lobby starts), the plugin tears down the Minecraft overlay and stops calling game damage/spawn APIs. Since everything How to Steve adds is local GameObjects, and the only game APIs it calls run on a host you own, nothing reaches another player.
 
 ---
 
@@ -220,7 +220,7 @@ If any of them goes false mid-session (someone joins, or a Steam lobby starts), 
 - **HUD:** `PlayerUI` with `VitalsUI` (HTF health/hunger), `ItemUI`, `WeaponUI`, `FishingUI`, `BossUI`, `OnHitUI`; `CanvasManager`. Draw the Minecraft HUD on our own Canvas; optionally hide `VitalsUI`.
 - **Inventory:** `PlayerInventory : NetworkBehaviour`, `Server.SelectInvSlot`, `PutItemInInventory`.
 - **Hunger already exists:** `PlayerVitals._syncedFullness`, `LowerFullnessTick`, `DamageFromFullness`. Decide whether Minecraft hunger or HTF fullness wins (decisions.md).
-- **Save system:** `SaveManager`, `AutoSaver`, `SaveSystem`, `SavedPlayer/SavedItem/SavedWorldItem`. SteveFish must not write into these.
+- **Save system:** `SaveManager`, `AutoSaver`, `SaveSystem`, `SavedPlayer/SavedItem/SavedWorldItem`. How to Steve must not write into these.
 - **Settings / god mode:** `ServerSettings.DamageMultiplier`, `UseFriendlyFire`; `PlayerManager.InGodMode`; `ClientSettings.CheatsEnabled`.
 
 ---
@@ -232,16 +232,16 @@ UnityExplorer 4.13.6 (BepInEx 5 Mono) does **not** work on Unity 6000.4: it thro
 | # | unknown | how to resolve (UnityExplorer, in an offline lobby) |
 |---|---|---|
 | ~~U1~~ | **Resolved (Phase 2, 2026-10-18): yes.** BepInEx 5.4.23.5 x64 loads on Unity 6000.4.4f1 Mono (`Running under Unity v6000.4.4.3542935`, `Supports SRE: True`), the Chainloader starts, and the plugin's `Awake` logs `loaded, unity=6000.4.4f1`. The game's `ClientWebSocket` and Newtonsoft.Json work in-process (pong RTT ≈1 ms). Side observation: in the main menu SoloGuard reads `IsUsingSteam=true`, host=no, players=0; it flips to offline/host/1 player once the offline world loads | `BepInEx/LogOutput.log` |
-| ~~U2~~ | **Resolved:** player capsule height 1.700, radius 0.375, player lossyScale 1. Minecraft's player is 1.8 tall, so **1 Unity unit = 1 block** (scale 1.0) is right | [runtime] SteveFish `[diag]` in `BepInEx/LogOutput.log`, offline world Island1, 2026-10-18 |
-| ~~U3~~ | **Resolved:** `LevelLayer`=0x100 [8 Level]; `CanJumpOnLayers`=0x1800AB08 [3 Player, 8 Level, 9 ItemPart, 11 InvisibleColliders, 13 InvisiblePlayerCollider, 15 OutlinedObject, 27 BoatDynamic, 28 NPC] (note: **not** 12 InvisibleGroundCollider); `ProjectileHitLayer`=0x18068398 [3,4,7,8,9,15,17,18,27,28]; `LegStepOnLayers`=0x18068308; `PlayerLayers`=0x1000008 [3,24] | [runtime] SteveFish `[diag]` in `BepInEx/LogOutput.log`, offline world Island1, 2026-10-18 |
-| ~~U4~~ | **Resolved (key pairs):** Player×Level, LocalPlayer×Level, LocalPlayer×InvisibleColliders/InvisibleGroundCollider/InvisiblePlayerCollider all collide; LocalPlayer×DecorationBlock ignored | [runtime] SteveFish `[diag]` in `BepInEx/LogOutput.log`, offline world Island1, 2026-10-18 |
-| ~~U5~~ | **Resolved (Island1):** level geometry is **13 MeshColliders on layer 8 Level** (no TerrainCollider); plus 2 non-trigger BoxColliders on InvisibleColliders and assorted triggers. Island root is `IslandManager`, its parent (our anchor) `IslandHolder` at (-200, 0, 600). `Island.IslandSize`=9 | [runtime] SteveFish `[diag]` in `BepInEx/LogOutput.log`, offline world Island1, 2026-10-18 |
-| ~~U6~~ | **Resolved:** FishNet `TickRate`=50 Hz, so the `Player.TickUpdate` postfix runs at 50 Hz and is downsampled to 20 Hz | [runtime] SteveFish `[diag]` in `BepInEx/LogOutput.log`, offline world Island1, 2026-10-18 |
+| ~~U2~~ | **Resolved:** player capsule height 1.700, radius 0.375, player lossyScale 1. Minecraft's player is 1.8 tall, so **1 Unity unit = 1 block** (scale 1.0) is right | [runtime] How to Steve `[diag]` in `BepInEx/LogOutput.log`, offline world Island1, 2026-10-18 |
+| ~~U3~~ | **Resolved:** `LevelLayer`=0x100 [8 Level]; `CanJumpOnLayers`=0x1800AB08 [3 Player, 8 Level, 9 ItemPart, 11 InvisibleColliders, 13 InvisiblePlayerCollider, 15 OutlinedObject, 27 BoatDynamic, 28 NPC] (note: **not** 12 InvisibleGroundCollider); `ProjectileHitLayer`=0x18068398 [3,4,7,8,9,15,17,18,27,28]; `LegStepOnLayers`=0x18068308; `PlayerLayers`=0x1000008 [3,24] | [runtime] How to Steve `[diag]` in `BepInEx/LogOutput.log`, offline world Island1, 2026-10-18 |
+| ~~U4~~ | **Resolved (key pairs):** Player×Level, LocalPlayer×Level, LocalPlayer×InvisibleColliders/InvisibleGroundCollider/InvisiblePlayerCollider all collide; LocalPlayer×DecorationBlock ignored | [runtime] How to Steve `[diag]` in `BepInEx/LogOutput.log`, offline world Island1, 2026-10-18 |
+| ~~U5~~ | **Resolved (Island1):** level geometry is **13 MeshColliders on layer 8 Level** (no TerrainCollider); plus 2 non-trigger BoxColliders on InvisibleColliders and assorted triggers. Island root is `IslandManager`, its parent (our anchor) `IslandHolder` at (-200, 0, 600). `Island.IslandSize`=9 | [runtime] How to Steve `[diag]` in `BepInEx/LogOutput.log`, offline world Island1, 2026-10-18 |
+| ~~U6~~ | **Resolved:** FishNet `TickRate`=50 Hz, so the `Player.TickUpdate` postfix runs at 50 Hz and is downsampled to 20 Hz | [runtime] How to Steve `[diag]` in `BepInEx/LogOutput.log`, offline world Island1, 2026-10-18 |
 | U7 | Which components bind `PlayerLeftClick` / `PlayerRightClick` | Hooks tab, or ILSpy on `PlayerHolding`/`PlayerPunching.BindInputs` |
-| ~~U8~~ | **Resolved:** `Universal Render Pipeline/Lit` and `/Unlit` are present, `/Simple Lit` is stripped. Block materials use URP/Lit (opaque + alpha-clip) | [runtime] SteveFish `[diag]` in `BepInEx/LogOutput.log`, offline world Island1, 2026-10-18 |
+| ~~U8~~ | **Resolved:** `Universal Render Pipeline/Lit` and `/Unlit` are present, `/Simple Lit` is stripped. Block materials use URP/Lit (opaque + alpha-clip) | [runtime] How to Steve `[diag]` in `BepInEx/LogOutput.log`, offline world Island1, 2026-10-18 |
 | ~~U9~~ | **Resolved (Phase 2):** `ConnectionManager.IsUsingSteam` is a `public static bool` field; `ConnectionManager.Instance` is a public static field. Also confirmed: `PlayerManager.Players` is `public static List<Player>`, `Player.LocalPlayer` is a `public static Player` field, FishNet `InstanceFinder.IsServerStarted/IsClientStarted` exist | [IL] metadata reflection on the installed `Assembly-CSharp.dll` / `FishNet.Runtime.dll`, 2026-10-18; the plugin compiles against them directly in `SoloGuard.cs` |
-| ~~U10~~ | **Resolved:** `FishNet.Transporting.UTP.UnityTransport` `ConnectionData.Address=localhost`, `Port=7777`, behind a `Multipass` transport. No clash with 25565/25575/25599 | [runtime] SteveFish `[diag]` in `BepInEx/LogOutput.log`, offline world Island1, 2026-10-18 |
-| ~~U12~~ | **Resolved:** `GameInfo.CurCamera` (`Camera`) cullingMask=0xEE7FFFF includes layer 8; near 0.01, far 500 | [runtime] SteveFish `[diag]` in `BepInEx/LogOutput.log`, offline world Island1, 2026-10-18 |
+| ~~U10~~ | **Resolved:** `FishNet.Transporting.UTP.UnityTransport` `ConnectionData.Address=localhost`, `Port=7777`, behind a `Multipass` transport. No clash with 25565/25575/25599 | [runtime] How to Steve `[diag]` in `BepInEx/LogOutput.log`, offline world Island1, 2026-10-18 |
+| ~~U12~~ | **Resolved:** `GameInfo.CurCamera` (`Camera`) cullingMask=0xEE7FFFF includes layer 8; near 0.01, far 500 | [runtime] How to Steve `[diag]` in `BepInEx/LogOutput.log`, offline world Island1, 2026-10-18 |
 | U11 | Whether How to Fish's anti-cheat/validation on the server rejects big pose jumps (matters only if we ever drive HTF from Minecraft) | Test teleport via `Player.LocalTeleport` |
 
 ---

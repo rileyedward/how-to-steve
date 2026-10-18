@@ -1,7 +1,7 @@
 using System;
 using HarmonyLib;
 
-namespace SteveFish.Patches
+namespace HowToSteve.Patches
 {
     /// <summary>
     /// Postfix on the private <c>Player.TickUpdate()</c> (game-map §2, hook a): it runs once per FishNet tick,

@@ -1,8 +1,8 @@
 {
-  "name": "stevefish-bridge",
+  "name": "how-to-steve-bridge",
   "version": "0.3.0",
   "private": true,
-  "description": "SteveFish bridge: local WebSocket server between the How to Fish plugin and Minecraft (Mineflayer from Phase 3)",
+  "description": "How to Steve bridge: local WebSocket server between the How to Fish plugin and Minecraft (Mineflayer from Phase 3)",
   "type": "module",
   "engines": {
     "node": ">=20"

@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using BepInEx.Logging;
 using UnityEngine;
 
-namespace SteveFish.Bridge
+namespace HowToSteve.Bridge
 {
     /// <summary>
     /// Unity APIs (GameObjects, Transforms, most statics) may only be touched from the main thread.
@@ -24,7 +24,7 @@ namespace SteveFish.Bridge
         public static MainThread Create(ManualLogSource log)
         {
             Log = log;
-            var go = new GameObject("SteveFish.MainThread");
+            var go = new GameObject("HowToSteve.MainThread");
             DontDestroyOnLoad(go);
             go.hideFlags = HideFlags.HideAndDontSave;
             return go.AddComponent<MainThread>();

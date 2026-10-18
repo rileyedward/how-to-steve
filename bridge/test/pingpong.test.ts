@@ -44,7 +44,7 @@ class FakePlugin {
 }
 
 const hello = (features: string[] = []) => ({
-  plugin: 'stevefish',
+  plugin: 'howtosteve',
   pluginVersion: '0.1.0',
   game: 'How to Fish',
   unityVersion: '6000.4.4f1',

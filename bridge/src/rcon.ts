@@ -11,9 +11,9 @@ const TYPE_COMMAND = 2;
 export const DEFAULT_RCON_PORT = 25575;
 export const DEFAULT_SECRET_PATH = resolve(dirname(fileURLToPath(import.meta.url)), '../../server/run/rcon.secret');
 
-/** Password from STEVEFISH_RCON_PASSWORD, else server/run/rcon.secret (written by server/start.ps1). */
+/** Password from HOWTOSTEVE_RCON_PASSWORD, else server/run/rcon.secret (written by server/start.ps1). */
 export function readRconPassword(path = DEFAULT_SECRET_PATH): string | null {
-  if (process.env.STEVEFISH_RCON_PASSWORD) return process.env.STEVEFISH_RCON_PASSWORD;
+  if (process.env.HOWTOSTEVE_RCON_PASSWORD) return process.env.HOWTOSTEVE_RCON_PASSWORD;
   return existsSync(path) ? readFileSync(path, 'utf8').trim() : null;
 }
 

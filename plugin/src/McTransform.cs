@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SteveFish
+namespace HowToSteve
 {
     /// <summary>
     /// Unity ↔ Minecraft coordinates (protocol.md §3). <c>u</c> is a position in the current island's local

@@ -42,7 +42,7 @@ describe('parseEnvelope', () => {
 });
 
 describe('validateHello', () => {
-  const hello = { plugin: 'stevefish', pluginVersion: '0.1.0', game: 'How to Fish', unityVersion: '6000.4.4f1', features: [] };
+  const hello = { plugin: 'howtosteve', pluginVersion: '0.1.0', game: 'How to Fish', unityVersion: '6000.4.4f1', features: [] };
   it('accepts the protocol.md example shape', () => expect(validateHello(hello)).toBeNull());
   it('ignores unknown fields', () => expect(validateHello({ ...hello, future: 1 })).toBeNull());
   it('requires features as string[]', () => expect(validateHello({ ...hello, features: [1] })).toMatch(/features/));

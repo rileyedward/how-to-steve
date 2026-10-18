@@ -4,11 +4,11 @@ using BepInEx.Logging;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace SteveFish.Minecraft
+namespace HowToSteve.Minecraft
 {
     /// <summary>
     /// Draws the Minecraft blocks near Steve inside How to Fish. Hierarchy:
-    /// <c>SteveFish.World</c> (DontDestroyOnLoad, copies the island anchor's pose every frame)
+    /// <c>HowToSteve.World</c> (DontDestroyOnLoad, copies the island anchor's pose every frame)
     /// └ <c>MC</c> (applies McTransform, so children use raw Minecraft coordinates)
     ///   └ one GameObject per 16³ section with MeshFilter + MeshRenderer.
     /// These are plain local GameObjects: nothing is networked (game-map §5).
@@ -36,7 +36,7 @@ namespace SteveFish.Minecraft
 
         public static WorldRenderer Create(McTransform transform, BlockAtlas atlas, int layer, ManualLogSource log)
         {
-            var go = new GameObject("SteveFish.World");
+            var go = new GameObject("HowToSteve.World");
             DontDestroyOnLoad(go);
             var r = go.AddComponent<WorldRenderer>();
             r._log = log;
@@ -168,7 +168,7 @@ namespace SteveFish.Minecraft
         public Material MakeUnlitMaterial(Color color)
         {
             var shader = Shader.Find("Universal Render Pipeline/Unlit") ?? Shader.Find("Sprites/Default");
-            var m = new Material(shader) { name = "SteveFish.Unlit" };
+            var m = new Material(shader) { name = "HowToSteve.Unlit" };
             if (m.HasProperty("_BaseColor")) m.SetColor("_BaseColor", color);
             m.color = color;
             return m;
@@ -208,7 +208,7 @@ namespace SteveFish.Minecraft
 
         private Material MakeMaterial(Shader shader, bool cutout)
         {
-            var m = new Material(shader) { name = cutout ? "SteveFish.Blocks.Cutout" : "SteveFish.Blocks.Opaque" };
+            var m = new Material(shader) { name = cutout ? "HowToSteve.Blocks.Cutout" : "HowToSteve.Blocks.Opaque" };
             m.mainTexture = _atlas.Texture;
             if (m.HasProperty("_BaseMap")) m.SetTexture("_BaseMap", _atlas.Texture);
             if (m.HasProperty("_BaseColor")) m.SetColor("_BaseColor", Color.white);

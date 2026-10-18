@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using BepInEx.Logging;
-using SteveFish.Bridge;
+using HowToSteve.Bridge;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace SteveFish.Minecraft
+namespace HowToSteve.Minecraft
 {
     /// <summary>
     /// Turns the current island's level colliders into a block bitset for terrain_upload (protocol §4.8),

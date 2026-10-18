@@ -8,7 +8,7 @@ using FishNet;
 using HarmonyLib;
 using UnityEngine;
 
-namespace SteveFish
+namespace HowToSteve
 {
     /// <summary>
     /// One-shot runtime answers to the game-map §9 unknowns, logged as "[diag] Ux ...". Main thread only.

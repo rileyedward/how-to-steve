@@ -1,9 +1,9 @@
 using BepInEx.Configuration;
 using UnityEngine;
 
-namespace SteveFish
+namespace HowToSteve
 {
-    /// <summary>Bound to BepInEx\config\dev.riley.stevefish.cfg (created on first launch; new keys are added automatically).</summary>
+    /// <summary>Bound to BepInEx\config\dev.riley.howtosteve.cfg (created on first launch; new keys are added automatically).</summary>
     internal sealed class PluginConfig
     {
         public ConfigEntry<string> BridgeUrl { get; }
@@ -34,7 +34,7 @@ namespace SteveFish
         public PluginConfig(ConfigFile file)
         {
             BridgeUrl = file.Bind("Bridge", "BridgeUrl", "ws://127.0.0.1:25599",
-                "WebSocket URL of the SteveFish bridge. Must be a loopback address (local-only).");
+                "WebSocket URL of the How to Steve bridge. Must be a loopback address (local-only).");
             PingIntervalSeconds = file.Bind("Bridge", "PingIntervalSeconds", 5f,
                 "Seconds between heartbeat pings. Three missed pongs drop the connection.");
             MinecraftModeKey = file.Bind("Input", "MinecraftModeKey", "B",

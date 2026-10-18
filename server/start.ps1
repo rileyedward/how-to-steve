@@ -1,4 +1,4 @@
-# Starts the local SteveFish Paper server (127.0.0.1 only).
+# Starts the local HowToSteve Paper server (127.0.0.1 only).
 # Usage:  powershell -ExecutionPolicy Bypass -File server\start.ps1
 $ErrorActionPreference = 'Stop'
 
@@ -12,7 +12,7 @@ $run  = Join-Path $here 'run'
 New-Item -ItemType Directory -Force $run | Out-Null
 
 # Java 21
-$java = $env:STEVEFISH_JAVA
+$java = $env:HOWTOSTEVE_JAVA
 if (-not $java) {
     $jdk = Get-ChildItem 'C:\Program Files\Eclipse Adoptium' -Directory -ErrorAction SilentlyContinue |
         Where-Object Name -like 'jdk-21*' | Sort-Object Name -Descending | Select-Object -First 1

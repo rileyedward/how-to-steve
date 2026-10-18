@@ -1,4 +1,4 @@
-namespace SteveFish.Launcher;
+namespace HowToSteve.Launcher;
 
 /// <summary>Everything the launcher downloads, pinned by version and SHA-256. Bump these deliberately.</summary>
 internal static class Pins

@@ -2,19 +2,37 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 using Microsoft.Win32;
 
-namespace SteveFish.Launcher;
+namespace HowToSteve.Launcher;
 
 /// <summary>Finds what's already on this PC. Nothing here changes anything.</summary>
 internal static class Detect
 {
-    /// <summary>Launcher data: server world, RCON secret, settings. %LOCALAPPDATA%\SteveFish.</summary>
-    public static string DataDir => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SteveFish");
+    /// <summary>Launcher data: server world, RCON secret, settings. %LOCALAPPDATA%\HowToSteve.</summary>
+    public static string DataDir => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "HowToSteve");
     public static string ServerDir => Path.Combine(DataDir, "server");
+
+    /// <summary>Data folder used before the rename to How to Steve.</summary>
+    private static string LegacyDataDir => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SteveFish");
+
+    /// <summary>Moves %LOCALAPPDATA%\SteveFish (world, settings) to the new name once. Returns what happened, or null.</summary>
+    public static string? MigrateLegacyData()
+    {
+        if (Directory.Exists(DataDir) || !Directory.Exists(LegacyDataDir)) return null;
+        try
+        {
+            Directory.Move(LegacyDataDir, DataDir);
+            return $"Moved your world and settings from {LegacyDataDir} to {DataDir}.";
+        }
+        catch (Exception e)
+        {
+            return $"Couldn't move {LegacyDataDir} to {DataDir} ({e.Message}); close anything using it and restart the launcher.";
+        }
+    }
 
     /// <summary>Folder the launcher exe lives in (release layout: plugin\, bridge\ next to it).</summary>
     public static string AppDir => AppContext.BaseDirectory;
 
-    public static string BundledPlugin => Path.Combine(AppDir, "plugin", "SteveFish.Plugin.dll");
+    public static string BundledPlugin => Path.Combine(AppDir, "plugin", "HowToSteve.Plugin.dll");
     public static string BundledNode => Path.Combine(AppDir, "bridge", "node.exe");
     public static string BundledBridgeEntry => Path.Combine(AppDir, "bridge", "app", "dist", "src", "index.js");
 
@@ -135,7 +153,7 @@ internal static class Detect
     public static bool IsBepInExInstalled(string gameDir) =>
         File.Exists(Path.Combine(gameDir, "winhttp.dll")) && File.Exists(Path.Combine(gameDir, "BepInEx", "core", "BepInEx.dll"));
 
-    public static string PluginPath(string gameDir) => Path.Combine(gameDir, "BepInEx", "plugins", "SteveFish", "SteveFish.Plugin.dll");
+    public static string PluginPath(string gameDir) => Path.Combine(gameDir, "BepInEx", "plugins", "HowToSteve", "HowToSteve.Plugin.dll");
 
     /// <summary>True when the installed plugin is byte-identical to the one bundled with this launcher.</summary>
     public static bool IsPluginCurrent(string gameDir)

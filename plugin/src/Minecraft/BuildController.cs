@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BepInEx.Logging;
-using SteveFish.Bridge;
+using HowToSteve.Bridge;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace SteveFish.Minecraft
+namespace HowToSteve.Minecraft
 {
     /// <summary>
     /// Minecraft mode: toggled with a key (default B). While on, the game's own mouse-button / scroll /
@@ -146,7 +146,7 @@ namespace SteveFish.Minecraft
             if (_crack == null)
             {
                 _crack = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                _crack.name = "SteveFish.Crack";
+                _crack.name = "HowToSteve.Crack";
                 UnityEngine.Object.Destroy(_crack.GetComponent<Collider>());
                 _crack.transform.SetParent(_renderer.McRoot, false);
                 _crack.transform.localScale = Vector3.one * 1.004f;
@@ -347,7 +347,7 @@ namespace SteveFish.Minecraft
 
         private GameObject CreateOutline()
         {
-            var go = new GameObject("SteveFish.Outline") { layer = _renderer.gameObject.layer };
+            var go = new GameObject("HowToSteve.Outline") { layer = _renderer.gameObject.layer };
             go.transform.SetParent(_renderer.McRoot, false);
             const float e = 0.004f;
             float a = -e, b = 1 + e;

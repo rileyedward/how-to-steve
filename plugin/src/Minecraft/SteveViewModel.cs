@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SteveFish.Minecraft
+namespace HowToSteve.Minecraft
 {
     /// <summary>
     /// Minecraft-mode first-person view model: Steve's right arm (default skin from the client jar's
@@ -63,7 +63,7 @@ namespace SteveFish.Minecraft
 
         private void Build()
         {
-            _root = new GameObject("SteveFish.ViewModel");
+            _root = new GameObject("HowToSteve.ViewModel");
             UnityEngine.Object.DontDestroyOnLoad(_root);
             _cube = UnitCube();
             _quad = UnitQuad();

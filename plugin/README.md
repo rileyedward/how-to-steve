@@ -1,4 +1,4 @@
-# SteveFish plugin (BepInEx 5)
+# How to Steve plugin (BepInEx 5)
 
 C# class library that BepInEx loads into How to Fish's Mono runtime. Generated with `dotnet new bepinex5plugin`
 (BepInEx.Templates 2.0.0-be.4) and adapted so the game's own assemblies are referenced from the install, never copied.
@@ -14,21 +14,21 @@ C# class library that BepInEx loads into How to Fish's Mono runtime. Generated w
 ## Build and install
 
 ```powershell
-dotnet build -c Release                 # -> bin\Release\netstandard2.1\SteveFish.Plugin.dll
-dotnet build -c Release -p:Deploy=true  # also copies it to BepInEx\plugins\SteveFish\
+dotnet build -c Release                 # -> bin\Release\netstandard2.1\HowToSteve.Plugin.dll
+dotnet build -c Release -p:Deploy=true  # also copies it to BepInEx\plugins\HowToSteve\
 ```
 
-Only `SteveFish.Plugin.dll` is deployed. Unity, Newtonsoft.Json 13, FishNet and `ClientWebSocket` come from the game
+Only `HowToSteve.Plugin.dll` is deployed. Unity, Newtonsoft.Json 13, FishNet and `ClientWebSocket` come from the game
 itself (`Private=false` references), so nothing else is bundled.
 
-Config is created on first launch at `BepInEx\config\dev.riley.stevefish.cfg` (`BridgeUrl`, `PingIntervalSeconds`,
-`MinecraftModeKey`). Logs go to `BepInEx\LogOutput.log`, tagged `:SteveFish]`.
+Config is created on first launch at `BepInEx\config\dev.riley.howtosteve.cfg` (`BridgeUrl`, `PingIntervalSeconds`,
+`MinecraftModeKey`). Logs go to `BepInEx\LogOutput.log`, tagged `:How to Steve]`.
 
 ## Layout
 
 | file | role |
 |---|---|
-| `src/Plugin.cs` | `[BepInPlugin("dev.riley.stevefish", "SteveFish", "0.1.0")]` entry point; `Awake()` runs once at startup |
+| `src/Plugin.cs` | `[BepInPlugin("dev.riley.howtosteve", "How to Steve", "0.1.0")]` entry point; `Awake()` runs once at startup |
 | `src/Config.cs` | BepInEx config bindings |
 | `src/Bridge/BridgeClient.cs` | WebSocket client: connect, backoff 1/2/4/8/10 s, send loop, receive loop, heartbeat (3 missed pongs = reconnect) |
 | `src/Bridge/Envelope.cs` | protocol v0 envelope and hello/hello_ack/ping/pong/error DTOs |

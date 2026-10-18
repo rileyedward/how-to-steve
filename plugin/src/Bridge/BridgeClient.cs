@@ -10,7 +10,7 @@ using BepInEx.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace SteveFish.Bridge
+namespace HowToSteve.Bridge
 {
     /// <summary>
     /// WebSocket client to the bridge (protocol.md §1). Runs entirely off the Unity main thread:

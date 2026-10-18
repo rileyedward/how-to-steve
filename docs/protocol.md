@@ -1,4 +1,4 @@
-# SteveFish bridge protocol
+# How to Steve bridge protocol
 
 **Version:** 0 (draft; session subset implemented in Phase 2)
 **Parties:** the BepInEx plugin inside How to Fish ("plugin") and the Node/TypeScript Mineflayer service ("bridge").
@@ -7,7 +7,7 @@
 ## 1. Transport
 
 - WebSocket, text frames, one JSON object per frame, UTF-8.
-- The **bridge is the server**, bound to `127.0.0.1` only (never `0.0.0.0`). Default port `25599`, overridable by `STEVEFISH_PORT` on the bridge and `BridgeUrl` in the plugin's BepInEx config.
+- The **bridge is the server**, bound to `127.0.0.1` only (never `0.0.0.0`). Default port `25599`, overridable by `HOWTOSTEVE_PORT` on the bridge and `BridgeUrl` in the plugin's BepInEx config.
 - One plugin connection at a time. A second connection is rejected with `error{code:"busy"}` and closed.
 - The plugin reconnects with backoff (1s, 2s, 4s, capped at 10s). The game must keep running normally while disconnected: no exceptions, no hitches, Minecraft overlay simply hidden.
 - Why loopback only: the project rule is solo/local-only. Nothing on the wire should be reachable from another machine, and nothing here touches How to Fish's own networking.
@@ -48,7 +48,7 @@ Direction: **P→B** plugin to bridge, **B→P** bridge to plugin.
 
 **`hello`** P→B, first message after connect.
 ```json
-{ "plugin": "stevefish", "pluginVersion": "0.1.0", "game": "How to Fish", "unityVersion": "6000.4.4f1",
+{ "plugin": "howtosteve", "pluginVersion": "0.1.0", "game": "How to Fish", "unityVersion": "6000.4.4f1",
   "transform": { "mcOrigin": [0,64,0], "scale": 1.0, "flipZ": true },
   "features": ["player_state", "blocks_near", "dig", "place", "inventory", "hud_state", "terrain_upload"] }
 ```

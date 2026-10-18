@@ -1,7 +1,7 @@
-using SteveFish.Bridge;
+using HowToSteve.Bridge;
 using UnityEngine;
 
-namespace SteveFish.Minecraft
+namespace HowToSteve.Minecraft
 {
     /// <summary>What the plugin knows about Steve's Minecraft side, for the HUD. Main thread only.</summary>
     internal sealed class McClientState

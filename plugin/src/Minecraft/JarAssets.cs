@@ -5,7 +5,7 @@ using System.IO.Compression;
 using System.Linq;
 using BepInEx.Logging;
 
-namespace SteveFish.Minecraft
+namespace HowToSteve.Minecraft
 {
     /// <summary>
     /// Reads block models and textures straight out of the player's own Minecraft client jar at runtime.

@@ -79,7 +79,7 @@ async function connect(mc: FakeMc) {
     }
   };
   send('hello', {
-    plugin: 'stevefish', pluginVersion: '0.2.0', game: 'How to Fish', unityVersion: '6000.4.4f1',
+    plugin: 'howtosteve', pluginVersion: '0.2.0', game: 'How to Fish', unityVersion: '6000.4.4f1',
     features: ['player_state', 'blocks_near', 'dig', 'place', 'inventory', 'hud_state', 'window'],
   });
   return { send, next, nextOf };

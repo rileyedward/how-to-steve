@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace SteveFish.Launcher;
+namespace HowToSteve.Launcher;
 
 /// <summary>
 /// The launcher window: a checklist of prerequisites, the EULA box, Play / Stop, and live logs for the
@@ -44,7 +44,7 @@ internal sealed class MainForm : Form
             _fileLog = new StreamWriter(Path.Combine(Detect.DataDir, "launcher.log"), append: false) { AutoFlush = true };
         }
         catch (Exception) { _fileLog = null; }
-        Text = "SteveFish Launcher";
+        Text = "How to Steve Launcher";
         Width = 900;
         Height = 760;
         MinimumSize = new Size(760, 600);
@@ -53,7 +53,7 @@ internal sealed class MainForm : Form
 
         var header = new Label
         {
-            Text = "SteveFish — play as Steve in How to Fish",
+            Text = "How to Steve — play as Steve in How to Fish",
             Font = new Font(Font.FontFamily, 15, FontStyle.Bold),
             AutoSize = true,
             Padding = new Padding(8, 10, 8, 0),
@@ -123,7 +123,8 @@ internal sealed class MainForm : Form
         Shown += async (_, _) =>
         {
             RefreshChecks();
-            Log($"SteveFish launcher {Application.ProductVersion} — data folder: {Detect.DataDir}");
+            Log($"How to Steve launcher {Application.ProductVersion} — data folder: {Detect.DataDir}");
+            if (Program.MigrationNote != null) Log(Program.MigrationNote);
             if (autoPlay) await PlayAsync();
         };
         FormClosing += OnFormClosing;
@@ -155,7 +156,7 @@ internal sealed class MainForm : Form
             Row("BepInEx (mod loader)", bep ? $"✔ installed" : $"• will be installed on Play (BepInEx {Pins.BepInExVersion})", null, bep);
             var plugin = Detect.IsPluginCurrent(_gameDir);
             var pluginMissing = !File.Exists(Detect.BundledPlugin);
-            Row("SteveFish plugin", pluginMissing ? "✖ plugin\\SteveFish.Plugin.dll is missing next to the launcher" : plugin ? "✔ up to date" : "• will be installed/updated on Play",
+            Row("HowToSteve plugin", pluginMissing ? "✖ plugin\\HowToSteve.Plugin.dll is missing next to the launcher" : plugin ? "✔ up to date" : "• will be installed/updated on Play",
                 null, plugin);
         }
 
@@ -191,7 +192,7 @@ internal sealed class MainForm : Form
         if (dlg.ShowDialog(this) != DialogResult.OK) return;
         if (!File.Exists(Path.Combine(dlg.SelectedPath, Pins.GameExe)))
         {
-            MessageBox.Show(this, "That folder doesn't contain \"How to Fish.exe\".", "SteveFish", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            MessageBox.Show(this, "That folder doesn't contain \"How to Fish.exe\".", "How to Steve", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             return;
         }
         _settings.GameDir = dlg.SelectedPath;
@@ -221,7 +222,7 @@ internal sealed class MainForm : Form
             if (Detect.FindMinecraftJar() == null) throw new UserError("Minecraft Java Edition wasn't found. Start it once from the Minecraft Launcher so its files are on this PC.");
             var gameDir = _gameDir ?? throw new UserError("How to Fish wasn't found. Use \"Browse…\" to pick its folder.");
             if (!Setup.EulaAccepted()) throw new UserError("Please read and accept the Minecraft EULA (tick the box) — the server can't start without it.");
-            if (!File.Exists(Detect.BundledNode) || !File.Exists(Detect.BundledBridgeEntry)) throw new UserError("The bridge folder is missing next to the launcher. Re-extract the SteveFish zip.");
+            if (!File.Exists(Detect.BundledNode) || !File.Exists(Detect.BundledBridgeEntry)) throw new UserError("The bridge folder is missing next to the launcher. Re-extract the HowToSteve zip.");
 
             Status("Setting up…");
             if (!Detect.IsBepInExInstalled(gameDir))
@@ -229,9 +230,9 @@ internal sealed class MainForm : Form
                 if (Detect.IsGameRunning()) throw new UserError("Close How to Fish first so BepInEx can be installed.");
                 await Setup.InstallBepInEx(gameDir, Log, ct);
             }
-            if (!Detect.IsPluginCurrent(gameDir))
+            if (!Detect.IsPluginCurrent(gameDir) || Setup.HasLegacyPlugin(gameDir))
             {
-                if (Detect.IsGameRunning()) throw new UserError("Close How to Fish first so the SteveFish plugin can be updated.");
+                if (Detect.IsGameRunning()) throw new UserError("Close How to Fish first so the How to Steve plugin can be updated.");
                 Setup.InstallPlugin(gameDir, Log);
             }
             await Setup.PrepareServer(Log, ct);
@@ -241,7 +242,7 @@ internal sealed class MainForm : Form
             if (!_server.Running)
             {
                 if (Detect.IsPortInUse(Pins.ServerPort))
-                    Log($"Port {Pins.ServerPort} is already in use — assuming a SteveFish server is already running and using it.");
+                    Log($"Port {Pins.ServerPort} is already in use — assuming a How to Steve server is already running and using it.");
                 else
                 {
                     Status("Starting the Minecraft server…");
@@ -263,7 +264,7 @@ internal sealed class MainForm : Form
                     _bridgeSpawned = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
                     var env = new Dictionary<string, string>
                     {
-                        ["STEVEFISH_RCON_PASSWORD"] = File.ReadAllText(Setup.RconSecretFile).Trim(),
+                        ["HOWTOSTEVE_RCON_PASSWORD"] = File.ReadAllText(Setup.RconSecretFile).Trim(),
                         ["NODE_ENV"] = "production",
                     };
                     var bridgeDir = Path.GetDirectoryName(Detect.BundledNode)!;
@@ -286,7 +287,7 @@ internal sealed class MainForm : Form
         {
             Status(e.Message);
             Log("! " + e.Message);
-            MessageBox.Show(this, e.Message, "SteveFish", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(this, e.Message, "How to Steve", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         catch (OperationCanceledException)
         {

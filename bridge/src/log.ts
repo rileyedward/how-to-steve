@@ -1,7 +1,7 @@
 type Level = 'debug' | 'info' | 'warn' | 'error';
 
 const order: Record<Level, number> = { debug: 10, info: 20, warn: 30, error: 40 };
-const threshold = order[(process.env.STEVEFISH_LOG as Level) ?? 'info'] ?? order.info;
+const threshold = order[(process.env.HOWTOSTEVE_LOG as Level) ?? 'info'] ?? order.info;
 
 function emit(level: Level, msg: string, extra?: unknown): void {
   if (order[level] < threshold) return;

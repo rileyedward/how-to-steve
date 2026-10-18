@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace SteveFish.Launcher;
+namespace HowToSteve.Launcher;
 
 /// <summary>
 /// A child process (server or bridge) with its output streamed line by line. All children join a Windows

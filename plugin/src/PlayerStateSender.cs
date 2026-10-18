@@ -1,9 +1,9 @@
 using System;
 using HarmonyLib;
-using SteveFish.Bridge;
+using HowToSteve.Bridge;
 using UnityEngine;
 
-namespace SteveFish
+namespace HowToSteve
 {
     /// <summary>Builds player_state (protocol §4.2) from the local How to Fish player. Main thread only.</summary>
     internal sealed class PlayerStateSender

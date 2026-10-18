@@ -17,7 +17,7 @@ Goal: in How to Fish, press **B** for Minecraft mode, then break and place real 
 - `place` → `bot._placeBlockWithOptions(ref, face, {forceLook:'ignore', delta: cursor, swingArm:'right'})`. If `against` is air in Minecraft, the bridge first runs `setblock x y z minecraft:barrier keep` over RCON. This is terrain sync in miniature (D4, D18): the barrier is invisible, never streamed, and never overwrites anything.
 - `inventory` (46 slots, Minecraft window numbering) on spawn and on every `updateSlot`/`heldItemChanged`; `hud_state` on `health`, `breath`, `experience`, game mode changes (≤10 Hz).
 - `select_slot` → `bot.setQuickBarSlot`.
-- **Starter kit** on the first spawn of the world (tracked with the scoreboard tag `stevefish_kit` on Steve): a stone pickaxe, axe and shovel, 64 cobblestone, 64 dirt, 32 oak planks, 16 oak logs, a crafting table, 16 torches and 16 glass. Survival stays survival.
+- **Starter kit** on the first spawn of the world (tracked with the scoreboard tag `howtosteve_kit` (`stevefish_kit` from before the rename also counts) on Steve): a stone pickaxe, axe and shovel, 64 cobblestone, 64 dirt, 32 oak planks, 16 oak logs, a crafting table, 16 torches and 16 glass. Survival stays survival.
 
 ## Test
 

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SteveFish.Minecraft
+namespace HowToSteve.Minecraft
 {
     /// <summary>
     /// The Minecraft HUD (hotbar, hearts, food, XP, crosshair) drawn with IMGUI. IMGUI is Unity's
@@ -25,7 +25,7 @@ namespace SteveFish.Minecraft
 
         public static HudOverlay Create(JarAssets jar, McClientState state, WorldRenderer renderer, int scale)
         {
-            var go = new GameObject("SteveFish.Hud");
+            var go = new GameObject("HowToSteve.Hud");
             DontDestroyOnLoad(go);
             var h = go.AddComponent<HudOverlay>();
             h._jar = jar;
@@ -175,7 +175,7 @@ namespace SteveFish.Minecraft
             _plain.normal.textColor = c;
         }
 
-        public void ItemStack(Rect r, SteveFish.Bridge.InventorySlotDto stack, float s)
+        public void ItemStack(Rect r, HowToSteve.Bridge.InventorySlotDto stack, float s)
         {
             var icon = Icon(stack.Item);
             if (icon != null) GUI.DrawTexture(r, icon);

@@ -374,7 +374,7 @@ export class MinecraftLink extends EventEmitter<MinecraftLinkEvents> {
     if (!rcon) return;
     try {
       const tags = await rcon.command(`tag ${this.username} list`);
-      if (tags.includes(KIT_TAG)) return;
+      if (tags.includes(KIT_TAG) || tags.includes(LEGACY_KIT_TAG)) return;
       for (const [item, n] of STARTER_KIT) await rcon.command(`give ${this.username} minecraft:${item} ${n}`);
       await rcon.command(`tag ${this.username} add ${KIT_TAG}`);
       this.log.info('minecraft: gave Steve the starter kit');
@@ -507,7 +507,9 @@ function windowEvent(kind: 'open' | 'update', w: unknown): WindowEvent {
   };
 }
 
-const KIT_TAG = 'stevefish_kit';
+const KIT_TAG = 'howtosteve_kit';
+/** Tag from before the rename: a Steve who has it already got the kit. */
+const LEGACY_KIT_TAG = 'stevefish_kit';
 const STARTER_KIT: Array<[string, number]> = [
   ['stone_pickaxe', 1],
   ['stone_axe', 1],

@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using BepInEx.Logging;
-using SteveFish.Bridge;
+using HowToSteve.Bridge;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace SteveFish.Minecraft
+namespace HowToSteve.Minecraft
 {
     /// <summary>
     /// Minecraft inventory and container screens (player inventory with the 2×2 grid, crafting table,

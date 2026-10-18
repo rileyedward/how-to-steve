@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using BepInEx.Logging;
 using UnityEngine;
 
-namespace SteveFish.Minecraft
+namespace HowToSteve.Minecraft
 {
     /// <summary>
     /// One big point-filtered texture holding every block texture we've needed so far, 16×16 per tile.
@@ -38,7 +38,7 @@ namespace SteveFish.Minecraft
         {
             Texture = new Texture2D(Size, Size, TextureFormat.RGBA32, false)
             {
-                name = "SteveFish.BlockAtlas",
+                name = "HowToSteve.BlockAtlas",
                 filterMode = FilterMode.Point,
                 wrapMode = TextureWrapMode.Clamp,
                 anisoLevel = 0,

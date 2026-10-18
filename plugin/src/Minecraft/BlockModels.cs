@@ -6,7 +6,7 @@ using BepInEx.Logging;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 
-namespace SteveFish.Minecraft
+namespace HowToSteve.Minecraft
 {
     /// <summary>Faces in Minecraft terms. Index order matches <see cref="Dirs.Vectors"/>.</summary>
     internal static class Dirs

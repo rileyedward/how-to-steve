@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
-using SteveFish.Bridge;
-using SteveFish.Minecraft;
-using SteveFish.Patches;
-using SteveFish.Safety;
+using HowToSteve.Bridge;
+using HowToSteve.Minecraft;
+using HowToSteve.Patches;
+using HowToSteve.Safety;
 using UnityEngine;
 
-namespace SteveFish
+namespace HowToSteve
 {
     // BepInEx finds this class by its [BepInPlugin] attribute and calls Awake() once at game start.
     [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
