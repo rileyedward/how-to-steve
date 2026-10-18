@@ -1,0 +1,43 @@
+# Never commit game binaries, decompiled code, or Minecraft assets.
+*.dll
+*.pdb
+*.exe
+*.mdb
+Managed/
+BepInEx/
+*.decompiled.*
+decompiled/
+ilspy-out/
+tools/rea/out/
+
+# Minecraft assets (loaded at runtime from the player's own install)
+*.jar
+assets/minecraft/
+**/textures/block/
+**/textures/item/
+*.mcmeta
+
+# Local machine config
+Directory.Build.props.user
+*.user
+
+# .NET
+bin/
+obj/
+.vs/
+
+# Node
+node_modules/
+dist/
+coverage/
+*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Local Minecraft server runtime (jar, world, logs, secrets)
+server/run/
+

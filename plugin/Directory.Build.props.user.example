@@ -1,0 +1,8 @@
+<Project>
+  <!-- Copy to Directory.Build.props.user (git-ignored) and adjust for your machine. -->
+  <PropertyGroup>
+    <HowToFishDir>C:\Program Files (x86)\Steam\steamapps\common\How to Fish\How to Fish</HowToFishDir>
+    <HowToFishManaged>$(HowToFishDir)\How to Fish_Data\Managed</HowToFishManaged>
+    <BepInExDir>$(HowToFishDir)\BepInEx</BepInExDir>
+  </PropertyGroup>
+</Project>

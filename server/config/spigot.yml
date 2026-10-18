@@ -1,0 +1,5 @@
+# Partial spigot.yml: Spigot adds every other key with its default on first start.
+# How to Fish's controller moves Steve (decisions D3), so the server must not rubber-band him.
+settings:
+  moved-too-quickly-multiplier: 1000.0
+  moved-wrongly-threshold: 1000.0

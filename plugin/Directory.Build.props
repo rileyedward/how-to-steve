@@ -1,0 +1,4 @@
+<Project>
+  <!-- Machine-specific paths live in the git-ignored Directory.Build.props.user (see the .example). -->
+  <Import Project="$(MSBuildThisFileDirectory)Directory.Build.props.user" Condition="Exists('$(MSBuildThisFileDirectory)Directory.Build.props.user')" />
+</Project>

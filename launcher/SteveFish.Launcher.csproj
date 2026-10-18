@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- One-click launcher: checks prerequisites, installs BepInEx + the plugin, runs the local Paper server and
+       the bridge, launches How to Fish through Steam, and shuts everything down cleanly. Published as a
+       self-contained single-file exe, so nothing needs installing. -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>SteveFishLauncher</AssemblyName>
+    <RootNamespace>SteveFish.Launcher</RootNamespace>
+    <Version>1.0.0</Version>
+    <Product>SteveFish Launcher</Product>
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+    <ApplicationVisualStyles>true</ApplicationVisualStyles>
+    <ApplicationIcon></ApplicationIcon>
+    <!-- Publishing: dotnet publish -c Release -r win-x64 (see tools/release/build-release.ps1) -->
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\server\config\server.properties" LogicalName="server.properties" />
+    <EmbeddedResource Include="..\server\config\spigot.yml" LogicalName="spigot.yml" />
+  </ItemGroup>
+</Project>
