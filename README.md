@@ -2,6 +2,8 @@
 
 Play as Steve inside How to Fish.
 
+> **Status:** Early development — the first release (v0.1.0) is out; expect rough edges and breaking changes.
+
 ## Overview
 
 ### What is How to Steve?
@@ -25,7 +27,7 @@ How to Steve is not produced, approved or endorsed by Dazed Games, Mojang Studio
 
 ### Prerequisites
 
-Ensure you have the following installed on your system. You can verify each one with the provided commands in a terminal.
+Ensure you have the following installed. You can verify each one by running the provided command in your terminal.
 
 1. **Java** (21+) runs the local Minecraft server. Check if Java is installed by running:
 
@@ -177,7 +179,13 @@ dotnet build plugin -c Release
 dotnet build launcher -c Release
 ```
 
+## Contributing
+
+Bug reports, ideas and pull requests are welcome through [Issues](../../issues). This is a personal project I work on in my spare time, so replies can be slow and not every suggestion will make it in. For anything bigger than a small fix, open an issue first so we can talk it through. Bug reports are most useful with your How to Steve version and the `launcher.log` from `%LOCALAPPDATA%\HowToSteve`.
+
 ## Data and Licensing
+
+How to Steve's own code is released under the [MIT License](LICENSE).
 
 How to Steve contains no How to Fish code or assets and no Minecraft assets. Block models, textures, GUI sprites, the default Steve skin and sounds are read at runtime from the player's own Minecraft installation and are never copied or redistributed. Game internals in [docs/game-map.md](docs/game-map.md) were mapped from type and method metadata; no decompiled code is included.
 
