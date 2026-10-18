@@ -33,7 +33,7 @@ import {
   type PlayerStatePayload,
 } from './protocol.js';
 
-export const BRIDGE_VERSION = '0.3.0'
+export const BRIDGE_VERSION = '0.1.0'
 export const DEFAULT_PORT = 25599;
 /** Loopback only, never 0.0.0.0 (protocol.md §1, decisions D1). */
 export const HOST = '127.0.0.1';

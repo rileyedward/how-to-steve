@@ -10,7 +10,7 @@
     <BepInExPluginName>How to Steve</BepInExPluginName>
     <Product>How to Steve</Product>
     <Description>Play as Steve inside How to Fish (local-only Minecraft bridge)</Description>
-    <Version>0.3.0</Version>
+    <Version>0.1.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <Nullable>disable</Nullable>
