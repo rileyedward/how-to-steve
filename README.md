@@ -2,13 +2,15 @@
 
 Play as Steve inside How to Fish.
 
-> **Status:** Early development — the first release (v0.1.0) is out; expect rough edges and breaking changes.
+> **Status:** Experimental — a working prototype built to see what was possible. It isn't being developed further, but you're welcome to download it, try it and make it your own.
 
 ## Overview
 
 ### What is How to Steve?
 
 How to Steve is a mod that runs real Minecraft alongside How to Fish. A local Minecraft server owns the blocks, items, crafting and survival rules; a BepInEx plugin draws that world inside How to Fish, so you can mine, build, craft and fight with Minecraft rules on a How to Fish island. A bridge between the two logs in as Steve and keeps him where your How to Fish player is, and the island itself is mirrored into Minecraft as invisible blocks so both games agree on where the ground is.
+
+The first release (v0.1.0) was a test of what was possible, so expect rough edges.
 
 Everything runs on your own PC. The server and bridge only listen on `127.0.0.1`, and the plugin switches itself off unless you're in an offline world, as host, with nobody else connected, so it never touches anyone else's game.
 
@@ -181,7 +183,7 @@ dotnet build launcher -c Release
 
 ## Contributing
 
-Bug reports, ideas and pull requests are welcome through [Issues](../../issues). This is a personal project I work on in my spare time, so replies can be slow and not every suggestion will make it in. For anything bigger than a small fix, open an issue first so we can talk it through. Bug reports are most useful with your How to Steve version and the `launcher.log` from `%LOCALAPPDATA%\HowToSteve`.
+This was an experiment to see what was possible, and I'm not developing it further, so I'm not reviewing issues or pull requests. You're very welcome to fork it, build on it and make it your own under the license below.
 
 ## Data and Licensing
 
